@@ -184,11 +184,11 @@ module.exports = {
         ).join(', ');
       
         // return early if this is called without fields
-        if (setString.length === 0) {
-          return;
-        }
+        
+        
       
         try {
+            if (setString.length > 0) {
 
            await client.query(`
             UPDATE posts
@@ -196,7 +196,7 @@ module.exports = {
             WHERE id=${ postId }
             RETURNING *;
           `, Object.values(fields));
-      
+            }
           if (tags === undefined) {
             return await getPostById(postId);
           }
