@@ -1,3 +1,5 @@
+require('dotenv').config();
+console.log(process.env.JWT_SECRET);
 const { client } = require('./db');
 client.connect();
 
@@ -22,6 +24,8 @@ server.use((req, res, next) => {
   
     next();
   });
+
+  
 
   const apiRouter = require('./api');
 server.use('/api', apiRouter);
