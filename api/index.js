@@ -33,24 +33,30 @@ apiRouter.use(async (req, res, next) => {
       }
 });
 
+
+apiRouter.use((req, res, next) => {
+    if (req.user) {
+        console.log("User is set:", req.user);
+    }
+    
+    next();
+});
+
+const usersRouter = require('./users');
+apiRouter.use('/users', usersRouter);
+
+const tagsRouter = require('./tags');
+apiRouter.use('/tags', tagsRouter);
+
+const postsRouter = require('./posts');
+apiRouter.use('/posts', postsRouter);
+
+
 apiRouter.use((error, req, res, next) => {
     res.send({
       name: error.name,
       message: error.message
     });
   });
-
-  apiRouter.use((req, res, next) => {
-    if (req.user) {
-      console.log("User is set:", req.user);
-    }
-  
-    next();
-  });
-
-const usersRouter = require('./users');
-apiRouter.use('/users', usersRouter);
-
-  
   module.exports = apiRouter;
 

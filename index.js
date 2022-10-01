@@ -17,6 +17,12 @@ server.use(morgan('dev'));
 
 server.use(express.json())
 
+server.get('/add/:first/to/:second', (req, res, next) => {
+  res.send(`<h1>${ req.params.first } + ${ req.params.second } = ${
+    Number(req.params.first) + Number(req.params.second)
+   }</h1>`);
+});
+
 server.use((req, res, next) => {
     console.log("<____Body Logger START____>");
     console.log(req.body);
@@ -25,6 +31,7 @@ server.use((req, res, next) => {
     next();
   });
 
+  
   
 
   const apiRouter = require('./api');
